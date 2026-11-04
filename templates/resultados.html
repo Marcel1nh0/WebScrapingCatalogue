@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Resultados da Pesquisa</title>
+
+</head>
+
+<body>
+
+    <h1>Resultados da Pesquisa</h1>
+
+    <a href="/">Fazer nova pesquisa</a>
+
+
+    <p><strong>Categoria pesquisada:</strong> {{ categoria }}</p>
+
+    <p><strong>Quantidade de produtos encontrados:</strong> {{ quantidade }} (de {{ total }} produtos coletados no site)</p>
+
+    {% if quantidade == 0 %}
+
+        <p>Nenhum produto encontrado nessa categoria.</p>
+
+    {% else %}
+
+        <!-- Mostra os preços com 2 casas decimais -->
+
+        <p><strong>Menor preço:</strong> ${{ "%.2f"|format(menor.preco) }} ({{ menor.nome }})</p>
+
+        <p><strong>Maior preço:</strong> ${{ "%.2f"|format(maior.preco) }} ({{ maior.nome }})</p>
+
+        <p><strong>Preço médio:</strong> ${{ "%.2f"|format(media) }}</p>
+
+        <p><strong>Melhor avaliação:</strong> {{ melhor.avaliacao }} ({{ melhor.nome }})</p>
+
+        <hr>
+
+        <!-- Lista de produtos -->
+        {% for produto in produtos %}
+
+            <h3>Produto {{ loop.index }}</h3>
+
+            <p>Nome: {{ produto.nome }}</p>
+
+            <p>Preço: ${{ "%.2f"|format(produto.preco) }}</p>
+
+            <p>Categoria: {{ produto.categoria }}</p>
+
+            <p>Avaliação: {{ produto.avaliacao }}</p>
+
+            <p>Link: <a href="{{ produto.link }}" target="_blank">{{ produto.link }}</a></p>
+
+            <hr>
+
+        {% endfor %}
+
+    {% endif %}
+
+</body>
+
+</html>
